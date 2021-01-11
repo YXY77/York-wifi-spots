@@ -1,0 +1,22 @@
+#wifi spots
+
+dist <- read.csv("dist_result.csv",  header = TRUE)
+
+plot(ecdf(dist$Distance), do.points=FALSE, verticals=TRUE)
+
+
+angle <- read.csv("angle_result.csv",  header = TRUE)
+
+plot(ecdf(angle$Angle), do.points=FALSE, verticals=TRUE)
+
+
+#buildings
+
+dist <- read.csv("dist_b.csv",  header = TRUE)
+
+plot(ecdf(dist$dist), do.points=FALSE, verticals=TRUE)
+
+
+angle <- read.csv("angle_b.csv",  header = TRUE)
+
+plot(ecdf(angle$angle), do.points=FALSE, verticals=TRUE)
