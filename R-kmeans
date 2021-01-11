@@ -1,0 +1,30 @@
+library(cluster)
+library(factoextra)
+
+package_list = c("factoextra","cluster")
+for(p in package_list){
+  if(!suppressWarnings(suppressMessages(require(p, character.only = TRUE, quietly = TRUE, warn.conflicts = FALSE)))){
+    install.packages(p, repos=site)
+    suppressWarnings(suppressMessages(library(p, character.only = TRUE, quietly = TRUE, warn.conflicts = FALSE)))
+  }
+}
+dataset = read.csv('WiFi.csv',
+                   header = TRUE, 
+                   col.names = c("Longtitude", "Lantitude", "Objectid", "Location", "Type"))
+dataset = dataset[1:2]
+summary(dataset)
+head(dataset)
+
+res = get_clust_tendency(df, 40, graph = TRUE)
+res$hopkins_stat
+res$plot
+
+set.seed(123)
+## Compute the gap statistic
+gap_stat = clusGap(df, FUN = kmeans, nstart = 25, K.max = 10, B = 500)
+# Plot the result
+fviz_gap_stat(gap_stat)
+
+km.res = kmeans(df, 1, nstart = 25)
+# Visualize clusters using factoextra
+fviz_cluster(km.res, dataset)
